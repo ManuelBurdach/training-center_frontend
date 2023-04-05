@@ -8,6 +8,7 @@ const Transaktion = ({ what, data }) => {
       </div>
       {data?.map((item) => {
         let date = new Date(item.timestamp);
+        let item = [...item].reverse();
         return (
           <div key={item.timestamp}>
             <h3>{item.manyHumans} x Humans</h3>
