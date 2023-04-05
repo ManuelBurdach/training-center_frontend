@@ -1,7 +1,6 @@
 import "./transaktion.css";
 
 const Transaktion = ({ what, data }) => {
-  data = [...data].reverse();
   return (
     <div className="transaktion">
       <div>
