@@ -8,7 +8,7 @@ import AddHumans from "./components/addHumans/addHumans.jsx";
 import Transaktion from "./components/transaktion/transaktion";
 
 // --------------------------------------------------- CONSTS
-const BASELINK = `${import.meta.env.VITE_BASELINK}` || "http://localhost:9999";
+const BASELINK = `${import.meta.env.VITE_BASELINK}`; // || "http://localhost:9999"
 const API_VERSION = "/api/v1";
 
 // --------------------------------------------------- APP
