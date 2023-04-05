@@ -1,6 +1,7 @@
 import "./transaktion.css";
 
 const Transaktion = ({ what, data }) => {
+  data = [...data].reverse();
   return (
     <div className="transaktion">
       <div>
@@ -8,7 +9,6 @@ const Transaktion = ({ what, data }) => {
       </div>
       {data?.map((item) => {
         let date = new Date(item.timestamp);
-        let item = [...item].reverse();
         return (
           <div key={item.timestamp}>
             <h3>{item.manyHumans} x Humans</h3>
