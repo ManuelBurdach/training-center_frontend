@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// --------------------------------------------------- IMPORTS
+import { useEffect, useState } from "react";
+import "./App.css";
 
+import SellHumans from "./components/sellHumans/sellHumans.jsx";
+import Memory from "./components/memory/memory.jsx";
+import AddHumans from "./components/addHumans/addHumans.jsx";
+import Transaktion from "./components/transaktion/transaktion";
+
+// --------------------------------------------------- CONSTS
+const BASELINK = "http://localhost:9999";
+const API_VERSION = "/api/v1";
+
+// --------------------------------------------------- APP
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    fetch(`${BASELINK + API_VERSION}/account`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      });
+  }, []);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="accountBalance">{data?.accountBalance} $</p>
+      <section className="flex">
+        <AddHumans setData={setData} baseLink={`${BASELINK + API_VERSION}`} />
+        <Memory size={data?.humansCounter} />
+        <SellHumans
+          size={data?.humansCounter}
+          setData={setData}
+          baseLink={`${BASELINK + API_VERSION}`}
+        />
+      </section>
+      <Transaktion what={"Add Humans"} data={data?.humansHistory} />
+      <Transaktion what={"Sell Humans"} data={data?.sellHistory} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
